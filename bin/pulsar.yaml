@@ -1,0 +1,21 @@
+serviceUrl: pulsar://127.0.0.1:6650
+httpUrl: http://127.0.0.1:8080
+numIOThreads: 1
+connectionsPerBroker: 1
+cluster: standalone
+namespace: benchmark/ns
+maxConcurrentLookups: 1000
+maxLookups: 10000
+listenerThreads: 8
+partitions: 2
+#topicType: non_persistent
+# persistence:
+#   ensembleSize: 1 
+#   writeQuorum: 1
+#   ackQuorum: 1
+#   deduplicationEnabled: false
+producerConfig:
+  batchingEnabled: true
+  maxBatchPublishDelay: 10
+  blockIfQueueFull: true
+  maxPendingMessages: 10000
