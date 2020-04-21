@@ -199,11 +199,11 @@ class TestRunner {
         List<LocationManager> producerLocationManagers = getLocationManagersSingleTopic(producerHandlers, config.producerTrajectoryFiles);
         log.info("Created producer location managers");
 
-        //List<LocationManager> consumerLocationManagers = getLocationManagersMultiTopic(consumerHandlers, config.consumerTrajectoryFiles);
-        //log.info("Created consumer location managers");
+        List<LocationManager> consumerLocationManagers = getLocationManagersMultiTopic(consumerHandlers, config.consumerTrajectoryFiles);
+        log.info("Created consumer location managers");
     
         try {
-            Thread.sleep(1000);
+            Thread.sleep(10000);
         } catch(InterruptedException e){
             e.printStackTrace();
         }
@@ -217,7 +217,9 @@ class TestRunner {
         for(int i = 0; i < consumerTasks.size(); ++i){
             consumerTasks.get(i).stop();
         }
-        
+        for(int i = 0; i < consumerLocationManagers.size(); ++i){
+            consumerLocationManagers.get(i).stop();
+        }
         consumerExecutor.shutdown();
         producerExecutor.shutdown();
         locationManagerExecutor.shutdown();
