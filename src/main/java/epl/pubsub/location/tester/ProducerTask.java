@@ -36,7 +36,6 @@ class ProducerTask implements Runnable {
                 producer.sendMessage(payload.getBytes());
 //.thenRun(()-> ++numMessagesSent);
                 ++numMessagesSent;
-                log.info("sent message");
                 Thread.sleep(interval);
             } catch(InterruptedException e){
                 e.printStackTrace();

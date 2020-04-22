@@ -60,7 +60,7 @@
     <dependency>
         <groupId>com.github.Manasvini</groupId>
         <artifactId>pulsar-location-samosa</artifactId>
-        <version>1bf4eb8bf6</version>
+        <version>f9ec77e72c</version>
     </dependency>
 
     <dependency>

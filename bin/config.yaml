@@ -4,10 +4,10 @@ numPartitionsPerTopic: 1
 indexConfig:
     minX: 33.7757
     minY: 84.3963
-    maxX: 33.9757
-    maxY: 84.5963
+    maxX: 34.7757
+    maxY: 85.3963
     blockSize: 0.01
-    indexType: GEOHASH
+    indexType: RTREE
 locationChangeInterval: 1000
 payloadFile: payload-1Kb.data
 pulsarConfigFile: pulsar.yaml

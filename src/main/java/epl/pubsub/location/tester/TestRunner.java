@@ -188,7 +188,7 @@ class TestRunner {
         log.info("created {} producers in {} ms", config.numProducers, sw.getTime());
         sw.reset();
         List<ProducerTask> producerTasks = getProducerTasks(producers);
-        log.info("created producer tasks");
+        log.info("created {} producer tasks", producerTasks.size());
 
         sw.start();
         List<PulsarLocationConsumer> consumers = getConsumers(client, config.numConsumers);
@@ -196,18 +196,18 @@ class TestRunner {
         log.info("created {} consumers in {} ms", config.numConsumers, sw.getTime());
 
         List<ConsumerTask> consumerTasks = getConsumerTasks(consumers);
-        log.info("created consumer tasks");    
+        log.info("created {} consumer tasks", consumerTasks.size());    
         List<LocationSubscriptionHandlerSingleTopicImpl> producerHandlers = getProducerLocationHandlers(producers, index);
-        log.info("created subscription handlers for producers");        
+        log.info("created {} subscription handlers for producers", producerHandlers.size());        
 
         List<LocationSubscriptionHandlerMultiTopicImpl> consumerHandlers = getConsumerLocationHandlers(consumers, index);
-        log.info("created subscription handlers for consumers");
+        log.info("created {} subscription handlers for consumers", consumerHandlers.size());
         
         List<LocationManager> producerLocationManagers = getLocationManagersSingleTopic(producerHandlers, config.producerTrajectoryFiles);
-        log.info("Created producer location managers");
+        log.info("Created {} producer location managers", producerLocationManagers.size());
 
         List<LocationManager> consumerLocationManagers = getLocationManagersMultiTopic(consumerHandlers, config.consumerTrajectoryFiles);
-        log.info("Created consumer location managers");
+        log.info("Created {} consumer location managers", consumerLocationManagers.size());
     
         try {
             Thread.sleep(1000 * config.testDurationSeconds);

@@ -34,7 +34,6 @@ class ConsumerTask implements MessageCallback, Runnable {
 
     @Override
     public void onMessageReceived(Message<byte[]> msg){
-        log.info("Received msg");
         
     }
     
