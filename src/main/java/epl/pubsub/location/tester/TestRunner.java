@@ -47,6 +47,7 @@ class TestRunner {
     ExecutorService producerExecutor;
     ExecutorService locationManagerExecutor;
 
+
     private static final Logger log = LoggerFactory.getLogger(TestRunner.class);
 
     public TestRunner(Config config){
@@ -99,7 +100,7 @@ class TestRunner {
     public List<ConsumerTask> getConsumerTasks(List<PulsarLocationConsumer> consumers){
         List<ConsumerTask> consumerTasks = new ArrayList<>();
         List<String> topics = new ArrayList<>();
-        String topicStr = "test";
+        String topicStr =  "test";
         topics.add(topicStr);
         for(int i = 0; i < consumers.size(); ++i){
             ConsumerTask consumerTask = new ConsumerTask(consumers.get(i), topics, topicStr + "_sub_" + i);
@@ -112,7 +113,7 @@ class TestRunner {
 
     public List<ProducerTask> getProducerTasks(List<PulsarLocationProducer> producers){
         List<ProducerTask> producerTasks = new ArrayList<>();
-        String topic = "test";
+        String topic =  "test";
         for(int i = 0; i < producers.size(); ++i){
             ProducerTask producerTask = new ProducerTask(producers.get(i), payload.toString(), 1, topic);
             producerTask.start();
@@ -169,6 +170,8 @@ class TestRunner {
     public class PubSubMetrics{
         public List<ConsumerMetrics> consumerMetrics;
         public List<ProducerMetrics> producerMetrics;
+        public int numConsumers;
+        public int numProducers;
     }
 
     public void runTest(){
@@ -235,6 +238,8 @@ class TestRunner {
         PubSubMetrics metrics = new PubSubMetrics();
         metrics.producerMetrics = new ArrayList<>();
         metrics.consumerMetrics = new ArrayList<>();
+        metrics.numConsumers = consumers.size();
+        metrics.numProducers = producers.size();
         for(int i = 0; i < consumers.size(); ++i){
             metrics.consumerMetrics.add(consumers.get(i).getConsumerMetrics());
         }
