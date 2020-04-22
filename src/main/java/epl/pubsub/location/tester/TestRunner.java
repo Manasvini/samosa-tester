@@ -159,6 +159,7 @@ class TestRunner {
         for(int i = 0; i < locationHandlers.size(); ++i){
             LocationManagerImpl lm = new LocationManagerImpl(config.locationChangeInterval, trajectoryFiles.get(i));
             lm.initManager(locationHandlers.get(i));
+            lm.start();
             locationManagerExecutor.execute(lm); 
             locationManagers.add(lm);
         }
