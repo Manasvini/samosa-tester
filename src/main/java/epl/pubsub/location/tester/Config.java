@@ -6,7 +6,8 @@ public class Config{
     public int numProducers;
     public int numConsumers;
     public int numPartitionsPerTopic;
-    
+    public int testDurationSeconds; 
+   
     public IndexConfig indexConfig;
 
     public List<String> consumerTrajectoryFiles;
@@ -16,4 +17,6 @@ public class Config{
 
     public String payloadFile;    
     public String pulsarConfigFile;
+    
+    public String outputFile;
 }

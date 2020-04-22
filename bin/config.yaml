@@ -8,11 +8,12 @@ indexConfig:
     maxY: 84.5963
     blockSize: 0.01
     indexType: GEOHASH
-locationChangeInterval: 1
+locationChangeInterval: 1000
 payloadFile: payload-1Kb.data
 pulsarConfigFile: pulsar.yaml
 producerTrajectoryFiles:
     - "0.0_0.txt"
 consumerTrajectoryFiles:
     - "1.0_0.txt"   
-
+testDurationSeconds: 10
+outputFile: "output_10sec_1prod_1cons.json"

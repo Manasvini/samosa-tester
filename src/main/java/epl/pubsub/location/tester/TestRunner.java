@@ -14,6 +14,8 @@ import epl.pubsub.location.LocationSubscriptionHandler;
 import epl.pubsub.location.LocationSubscriptionHandlerSingleTopicImpl;
 import epl.pubsub.location.LocationSubscriptionHandlerMultiTopicImpl;
 import epl.pubsub.location.LocationChangedCallback;
+import epl.pubsub.location.pulsarclient.ConsumerMetrics;
+import epl.pubsub.location.pulsarclient.ProducerMetrics;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
@@ -163,6 +165,10 @@ class TestRunner {
         return locationManagers;
     }
 
+    public class PubSubMetrics{
+        public List<ConsumerMetrics> consumerMetrics;
+        public List<ProducerMetrics> producerMetrics;
+    }
 
     public void runTest(){
         if(config.numProducers != config.producerTrajectoryFiles.size()){
@@ -203,25 +209,42 @@ class TestRunner {
         log.info("Created consumer location managers");
     
         try {
-            Thread.sleep(10000);
+            Thread.sleep(1000 * config.testDurationSeconds);
         } catch(InterruptedException e){
             e.printStackTrace();
         }
        
-        for(int i = 0; i < producerTasks.size(); ++i){
-            producerTasks.get(i).stop();
-        }
         for(int i = 0; i < producerLocationManagers.size(); ++i){
             producerLocationManagers.get(i).stop();
         } 
-        for(int i = 0; i < consumerTasks.size(); ++i){
-            consumerTasks.get(i).stop();
+        for(int i = 0; i < producerTasks.size(); ++i){
+            producerTasks.get(i).stop();
         }
         for(int i = 0; i < consumerLocationManagers.size(); ++i){
             consumerLocationManagers.get(i).stop();
         }
+        for(int i = 0; i < consumerTasks.size(); ++i){
+            consumerTasks.get(i).stop();
+        }
         consumerExecutor.shutdown();
         producerExecutor.shutdown();
+
         locationManagerExecutor.shutdown();
+        
+        PubSubMetrics metrics = new PubSubMetrics();
+        metrics.producerMetrics = new ArrayList<>();
+        metrics.consumerMetrics = new ArrayList<>();
+        for(int i = 0; i < consumers.size(); ++i){
+            metrics.consumerMetrics.add(consumers.get(i).getConsumerMetrics());
+        }
+        for(int i = 0; i < producers.size(); ++i){
+            metrics.producerMetrics.add(producers.get(i).getProducerMetrics());
+       }
+       try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.writeValue(new File(config.outputFile), metrics);
+        }catch(IOException ex){
+            ex.printStackTrace();
+        }
     }
 }
