@@ -10,7 +10,8 @@ Metrics such as publish rate, end to end latency and subscription changes are wr
 $ cd path/to/samosa-tester  
 $ mvn compile  
 $ mvn install  
-  
+```  
+ 
 ## Running the code  
 ``shell  
 $ cd bin  
