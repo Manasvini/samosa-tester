@@ -13,7 +13,7 @@ $ mvn install
 ```  
  
 ## Running the code  
-``shell  
+```shell  
 $ cd bin  
 $ bash run.sh config.yaml  
 ```
